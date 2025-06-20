@@ -1,4 +1,27 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# AI PDF Analysis
+
+This project is a Next.js application that uses AWS Bedrock to analyze an image of a tax form (Form 1125-A) and extract specific fields into a JSON format.
+
+## Overview
+
+The application provides a simple web interface to trigger an analysis of a predefined document. When a user clicks the "Infer" button, the frontend makes a request to a backend API endpoint.
+
+The backend then:
+
+1. Constructs a prompt containing the image of the document and the desired fields to extract.
+2. Sends this prompt to an AWS Bedrock model for analysis.
+3. Receives the extracted data in JSON format from the model.
+4. Caches the response to a local file.
+5. Returns the extracted data to the frontend to be displayed.
+
+The application also allows users to view the results of previous analyses from a dropdown list of cached responses.
+
+## Tech Stack
+
+- Next.js
+- React
+- TypeScript
+- AWS SDK for JavaScript (Bedrock Runtime)
 
 ## Getting Started
 
@@ -6,12 +29,6 @@ First, run the development server:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.

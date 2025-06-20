@@ -1,0 +1,188 @@
+{
+  "SchemaVersion": 1,
+  "UpdatedAt": "2025-06-19T02:10:20.768Z",
+  "Country": "US",
+  "FormId": "1125A",
+  "FormName": "Form 1125-A",
+  "ShortName": "1125A",
+  "Languages": [
+    "en"
+  ],
+  "Fields": [
+    {
+      "FieldId": "0",
+      "FieldText": {
+        "en": "1 Inventory at beginning of year"
+      },
+      "Filters": [
+        {
+          "Year": "2018",
+          "PageNumber": "1",
+          "Order": 0
+        },
+        {
+          "Year": "2024",
+          "PageNumber": "1",
+          "Order": 0
+        }
+      ]
+    },
+    {
+      "FieldId": "1",
+      "FieldText": {
+        "en": "2 Purchases"
+      },
+      "Filters": [
+        {
+          "Year": "2018",
+          "PageNumber": "1",
+          "Order": 1
+        },
+        {
+          "Year": "2024",
+          "PageNumber": "1",
+          "Order": 1
+        }
+      ]
+    },
+    {
+      "FieldId": "2",
+      "FieldText": {
+        "en": "3 Cost of labor"
+      },
+      "Filters": [
+        {
+          "Year": "2018",
+          "PageNumber": "1",
+          "Order": 2
+        },
+        {
+          "Year": "2024",
+          "PageNumber": "1",
+          "Order": 2
+        }
+      ]
+    },
+    {
+      "FieldId": "3",
+      "FieldText": {
+        "en": "4 Additional section 263A costs (attach schedule)"
+      },
+      "Filters": [
+        {
+          "Year": "2018",
+          "PageNumber": "1",
+          "Order": 3
+        },
+        {
+          "Year": "2024",
+          "PageNumber": "1",
+          "Order": 3
+        }
+      ]
+    },
+    {
+      "FieldId": "4",
+      "FieldText": {
+        "en": "5 Other costs (attach schedule)"
+      },
+      "Filters": [
+        {
+          "Year": "2018",
+          "PageNumber": "1",
+          "Order": 4
+        },
+        {
+          "Year": "2024",
+          "PageNumber": "1",
+          "Order": 4
+        }
+      ]
+    },
+    {
+      "FieldId": "5",
+      "FieldText": {
+        "en": "6 Total. Add lines 1 through 5"
+      },
+      "Filters": [
+        {
+          "Year": "2018",
+          "PageNumber": "1",
+          "Order": 5
+        },
+        {
+          "Year": "2024",
+          "PageNumber": "1",
+          "Order": 5
+        }
+      ]
+    },
+    {
+      "FieldId": "6",
+      "FieldText": {
+        "en": "7 Inventory at end of year"
+      },
+      "Filters": [
+        {
+          "Year": "2018",
+          "PageNumber": "1",
+          "Order": 6
+        },
+        {
+          "Year": "2024",
+          "PageNumber": "1",
+          "Order": 6
+        }
+      ]
+    },
+    {
+      "FieldId": "7",
+      "FieldText": {
+        "en": "8 Cost of goods sold. Subtract line 7 from line 6. Enter here and on Form 1120, page 1, line 2 or the appropriate line of your tax return. See instructions"
+      },
+      "Filters": [
+        {
+          "Year": "2018",
+          "PageNumber": "1",
+          "Order": 7
+        },
+        {
+          "Year": "2024",
+          "PageNumber": "1",
+          "Order": 7
+        }
+      ]
+    },
+    {
+      "FieldId": "8",
+      "FieldText": {
+        "en": "9d (i) If the LIFO inventory method was used for this tax year, enter amount of closing inventory figured under LIFO"
+      },
+      "Filters": [
+        {
+          "Year": "2018",
+          "PageNumber": "1",
+          "Order": 8
+        },
+        {
+          "Year": "2024",
+          "PageNumber": "1",
+          "Order": 8
+        }
+      ]
+    },
+    {
+      "FieldId": "9",
+      "FieldText": {
+        "en": "9d (ii) If the LIFO inventory method was used for this tax year, enter amount of the closing LIFO Reserve"
+      },
+      "Filters": [
+        {
+          "Year": "2024",
+          "PageNumber": "1",
+          "Order": 9
+        }
+      ]
+    }
+  ]
+}

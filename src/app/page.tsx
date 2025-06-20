@@ -1,95 +1,122 @@
+"use client";
+
+import { useState, useEffect } from "react";
 import Image from "next/image";
 import styles from "./page.module.css";
 
 export default function Home() {
+  const [output, setOutput] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [cachedFiles, setCachedFiles] = useState<string[]>([]);
+  const [selectedCacheFile, setSelectedCacheFile] = useState("");
+
+  useEffect(() => {
+    async function fetchCacheList() {
+      try {
+        const res = await fetch("/api/cache");
+        const data = await res.json();
+        if (data.files) {
+          setCachedFiles(
+            data.files.map((file: string) => file.replace(".json", ""))
+          );
+        }
+      } catch (error) {
+        console.error("Error fetching cache list:", error);
+      }
+    }
+    fetchCacheList();
+  }, []);
+
+  async function handleClick() {
+    setLoading(true);
+    setOutput("");
+    try {
+      const res = await fetch("/api/analyse?document=documentType&form=1125A");
+      const data = await res.json();
+      // The response from the API is a string that contains a JSON object.
+      // The JSON object is inside a code block. We need to extract it.
+      const jsonString = data.completion.match(/```json\n([\s\S]*?)\n```/)[1];
+      const parsedJson = JSON.parse(jsonString);
+      setOutput(JSON.stringify(parsedJson, null, 2));
+
+      if (data.fileId) {
+        if (!cachedFiles.includes(data.fileId)) {
+          setCachedFiles((prevFiles) => [...prevFiles, data.fileId]);
+        }
+        setSelectedCacheFile(data.fileId);
+      }
+    } catch (error) {
+      console.error("Error fetching or parsing data:", error);
+      setOutput("An error occurred. Please check the console for details.");
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  async function handleCacheSelect(event: React.ChangeEvent<HTMLSelectElement>) {
+    const fileId = event.target.value;
+    setSelectedCacheFile(fileId);
+
+    if (!fileId) {
+      setOutput("");
+      return;
+    }
+
+    setLoading(true);
+    setOutput("");
+    try {
+      const res = await fetch(`/api/cache/${fileId}`);
+      const data = await res.json();
+      const jsonString = data.text.match(/```json\n([\s\S]*?)\n```/)[1];
+      const parsedJson = JSON.parse(jsonString);
+      setOutput(JSON.stringify(parsedJson, null, 2));
+    } catch (error) {
+      console.error("Error fetching or parsing cache data:", error);
+      setOutput("An error occurred. Please check the console for details.");
+    } finally {
+      setLoading(false);
+    }
+  }
+
   return (
     <div className={styles.page}>
       <main className={styles.main}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol>
-          <li>
-            Get started by editing <code>src/app/page.tsx</code>.
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
-
         <div className={styles.ctas}>
-          <a
+          <button
             className={styles.primary}
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+            onClick={handleClick}
+            disabled={loading}
           >
+            {loading ? "Inferring..." : "Infer"}
+          </button>
+          <select
+            value={selectedCacheFile}
+            onChange={handleCacheSelect}
+            disabled={loading}
+          >
+            <option value="">Select a cached response</option>
+            {cachedFiles.map((fileId) => (
+              <option key={fileId} value={fileId}>
+                {fileId}
+              </option>
+            ))}
+          </select>
+        </div>
+        <div className={styles.sideBySide}>
+          <div className={styles.imageContainer}>
             <Image
-              className={styles.logo}
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
+              src="/form-image.jpg"
+              alt="Form 1125-A"
+              width={800}
+              height={1035}
+              className={styles.formImage}
             />
-            Deploy now
-          </a>
-          <a
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-            className={styles.secondary}
-          >
-            Read our docs
-          </a>
+          </div>
+          <div className={styles.output}>
+            {output && <pre>{output}</pre>}
+          </div>
         </div>
       </main>
-      <footer className={styles.footer}>
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
     </div>
   );
 }

@@ -39,3 +39,7 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# data
+src/data/pdf/
+!src/data/pdf/Deklam Divas 2019/Deklam Divas 2019.pdf-12.jpg
