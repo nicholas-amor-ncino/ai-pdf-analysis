@@ -6,6 +6,8 @@ This project is a Next.js application that uses AWS Bedrock to analyze an image 
 
 The application provides a simple web interface to trigger an analysis of a predefined document. When a user clicks the "Infer" button, the frontend makes a request to a backend API endpoint.
 
+![AI PDF Analysis Screenshot](/public/ai-pdf-analysis-screenshot.png)
+
 The backend then:
 
 1. Constructs a prompt containing the image of the document and the desired fields to extract.
