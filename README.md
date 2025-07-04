@@ -1,29 +1,32 @@
-# AI PDF Analysis
+# Document Analysis with AI
 
-This project is a Next.js application that uses AWS Bedrock to analyze an image of a tax form (Form 1125-A) and extract specific fields into a JSON format.
+This project is a Next.js application that uses AWS Bedrock to analyze uploaded documents (PDFs, images) and extract structured information such as tax statements, driver's licenses, and payslips into JSON format.
 
 ## Overview
 
-The application provides a simple web interface to trigger an analysis of a predefined document. When a user clicks the "Infer" button, the frontend makes a request to a backend API endpoint.
+The application provides a drag-and-drop interface for uploading files and analyzing various document types. Users can upload PDF, JPG, JPEG, or PNG files, which are then processed and analyzed using AI.
 
 ![AI PDF Analysis Screenshot](/public/ai-pdf-analysis-screenshot.png)
 
-The backend then:
+The workflow:
 
-1. Constructs a prompt containing the image of the document and the desired fields to extract.
-2. Sends this prompt to an AWS Bedrock model for analysis.
-3. Receives the extracted data in JSON format from the model.
-4. Caches the response to a local file.
-5. Returns the extracted data to the frontend to be displayed.
+1. User uploads a file via drag-and-drop or file picker
+2. PDFs are automatically converted to JPEG images for analysis
+3. Files are processed and stored with unique identifiers
+4. AI analysis extracts structured data from the document
+5. Results are cached locally and displayed to the user
+6. Users can view cached analysis results from previous uploads
 
-The application also allows users to view the results of previous analyses from a dropdown list of cached responses.
+The application can identify and analyze documents including tax forms, driver's licenses, payslips, and other structured documents.
 
 ## Tech Stack
 
-- Next.js
-- React
+- Next.js 15 with Turbopack for development
+- React 19
 - TypeScript
 - AWS SDK for JavaScript (Bedrock Runtime)
+- pdf2pic for PDF to image conversion
+- Multer for file upload handling
 
 ## Dependencies
 
@@ -53,20 +56,37 @@ Download and install from:
 
 ## Getting Started
 
-First, provide your AWS credentials and set the `MODEL_ID` environment variable :
-
-```
-echo 'PROFILE_ID=<your-profile-id>' >> .env.local
-```
-
-Then, run the development server with a genai SSO profile:
+First, set up your environment variables. Create a `.env.local` file:
 
 ```bash
-sso genai
+MODEL_ID=<your-bedrock-model-id>
+```
+
+Set up AWS SSO profile for Bedrock access:
+
+```bash
+aws sso login --profile genai
+export AWS_PROFILE=genai
+```
+
+Then, install dependencies and run the development server:
+
+```bash
+npm install
 npm run dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+
+## Features
+
+- **File Upload**: Drag-and-drop or click to upload PDF, JPG, JPEG, and PNG files
+- **PDF Processing**: Automatic conversion of PDF pages to JPEG images for analysis
+- **AI Analysis**: Uses AWS Bedrock's Claude model to extract structured data from documents
+- **Document Types**: Supports tax forms, driver's licenses, payslips, and other structured documents
+- **Caching**: Analysis results are cached locally for quick retrieval
+- **File Management**: Built-in endpoints to list uploaded files and cached results
+- **Clean-up Commands**: Scripts to clean uploaded files and cached data
 
 You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
