@@ -25,11 +25,44 @@ The application also allows users to view the results of previous analyses from 
 - TypeScript
 - AWS SDK for JavaScript (Bedrock Runtime)
 
-## Getting Started
+## Dependencies
 
-First, run the development server:
+This application requires ImageMagick or GraphicsMagick to be installed on your system for PDF to image conversion:
+
+**macOS:**
 
 ```bash
+brew install imagemagick
+# or
+brew install graphicsmagick
+```
+
+**Ubuntu/Debian:**
+
+```bash
+sudo apt-get install imagemagick
+# or
+sudo apt-get install graphicsmagick
+```
+
+**Windows:**
+Download and install from:
+
+- ImageMagick: https://imagemagick.org/script/download.php#windows
+- GraphicsMagick: http://www.graphicsmagick.org/download.html
+
+## Getting Started
+
+First, provide your AWS credentials and set the `MODEL_ID` environment variable :
+
+```
+echo 'PROFILE_ID=<your-profile-id>' >> .env.local
+```
+
+Then, run the development server with a genai SSO profile:
+
+```bash
+sso genai
 npm run dev
 ```
 

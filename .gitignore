@@ -43,3 +43,8 @@ next-env.d.ts
 # data
 src/data/pdf/
 !src/data/pdf/Deklam Divas 2019/Deklam Divas 2019.pdf-12.jpg
+src/data/cache/
+src/data/uploads/
+
+# Test files
+/test-documents

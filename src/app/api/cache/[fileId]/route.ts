@@ -6,9 +6,9 @@ const cacheDir = path.resolve(process.cwd(), "src/data/cache");
 
 export async function GET(
   request: Request,
-  { params }: { params: { fileId: string } }
+  { params }: { params: Promise<{ fileId: string }> }
 ) {
-  const { fileId } = params;
+  const { fileId } = await params;
   const filePath = path.join(cacheDir, `${fileId}.json`);
 
   try {
